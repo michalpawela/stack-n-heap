@@ -1,0 +1,13 @@
+# Build results
+bin/
+obj/
+
+# NuGet packages
+*.nupkg
+*.snupkg
+packages/
+
+# Editor settings (ignore all)
+.idea/
+.vs/
+.vscode/

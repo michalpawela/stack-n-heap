@@ -1,0 +1,90 @@
+@page "/"
+@using System.Collections.Generic
+@using LinkedHeap
+
+<h3>LinkedHeap Demo</h3>
+
+<div class="stats-container">
+  <div><b>Total Nodes:</b> @allNodes.Count</div>
+  <div><b>In-Use:</b> @InUseCount</div>
+  <div><b>Free:</b> @(allNodes.Count - InUseCount)</div>
+</div>
+
+<div class="controls-container">
+  <fieldset class="control-group">
+    <legend>Stack Controls</legend>
+
+    <div class="control-row">
+      <input type="number" @bind="customStackValue" class="value-input" />
+      <button class="btn btn-primary" @onclick="() => Push(customStackValue)">
+        Push Value
+      </button>
+      <button class="btn btn-secondary" @onclick="PopStack" disabled="@MyStack.IsEmpty">
+        Pop
+      </button>
+      <span class="peek-label">Top: @(MyStack.IsEmpty ? "—" : MyStack.Peek().ToString())</span>
+    </div>
+
+    <div class="control-row">
+      <label><input type="checkbox" @bind="autoStack" /> Auto-Stack</label>
+      <span class="interval-label">Min Delay (ms):</span>
+      <input type="number" @bind="stackMinDelayMs" class="interval-input" />
+      <span class="interval-label">Max Delay (ms):</span>
+      <input type="number" @bind="stackMaxDelayMs" class="interval-input" />
+      <span class="jitter-note">Actions will occur at random intervals in this range.</span>
+    </div>
+  </fieldset>
+
+  <fieldset class="control-group">
+    <legend>Queue Controls</legend>
+
+    <div class="control-row">
+      <input type="number" @bind="customQueueValue" class="value-input" />
+      <button class="btn btn-primary" @onclick="() => Enqueue(customQueueValue)">
+        Enqueue Value
+      </button>
+      <button class="btn btn-secondary" @onclick="DequeueQueue" disabled="@MyQueue.IsEmpty">
+        Dequeue
+      </button>
+      <span class="peek-label">Front: @(MyQueue.IsEmpty ? "—" : MyQueue.Peek().ToString())</span>
+    </div>
+
+    <div class="control-row">
+      <label><input type="checkbox" @bind="autoQueue" /> Auto-Queue</label>
+      <span class="interval-label">Min Delay (ms):</span>
+      <input type="number" @bind="queueMinDelayMs" class="interval-input" />
+      <span class="interval-label">Max Delay (ms):</span>
+      <input type="number" @bind="queueMaxDelayMs" class="interval-input" />
+      <span class="jitter-note">Actions will occur at random intervals in this range.</span>
+    </div>
+  </fieldset>
+</div>
+
+<h4>All Heap Nodes (grid):</h4>
+<div class="heap-grid">
+  @foreach (var ptr in allNodes)
+  {
+    unsafe
+    {
+      <div class="heap-cell @(IsInUse(ptr) ? "used" : "free")">
+        <div><b>Ptr:</b> @ptr.ToString("X")</div>
+        @if (IsInUse(ptr))
+        {
+          <div><b>Val:</b> @GetValue(ptr)</div>
+          @if (GetNext(ptr) == null)
+          {
+            <div><b>Next:</b> null</div>
+          }
+          else
+          {
+            <div><b>Next:</b> @(((IntPtr)GetNext(ptr)).ToString("X"))</div>
+          }
+        }
+        else
+        {
+          <div class="free-label"><i>free</i></div>
+        }
+      </div>
+    }
+  }
+</div>

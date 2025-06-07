@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>LinkedHeap</id>
+    <version>1.0.0</version>
+    <authors>Hieronim Daniel, Michał Pawela</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/Hier0nim/LinkedHeap</projectUrl>
+    <summary>Pointer-based stack and queue with a custom heap manager in C#.</summary>
+    <description>Custom stack and queue implementation using pointer-based lists with a custom heap manager.</description>
+    <releaseNotes>Initial release with stack, queue, and custom heap implementation.</releaseNotes>
+    <tags>heap stack queue pointer datastructure</tags>
+    <dependencies>
+      <group targetFramework="net10.0">
+        <!-- <dependency id="SomePackage" version="1.2.3" /> -->
+        <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version="10.0.0-preview.4.25258.110" />
+      </group>
+    </dependencies>
+    <readme>README.md</readme>
+    <repository type="git" url="https://github.com/Hier0nim/LinkedHeap" />
+  </metadata>
+  <files>
+    <file src="LinkedHeap/bin/Release/net10.0/LinkedHeap.dll" target="lib/net10.0" />
+    <file src="README.md" target="" />
+  </files>
+</package>
